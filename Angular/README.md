@@ -26,6 +26,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-### Tips
+## Tips
 create common `ng generate class common/<anything>`
 create service 
+
+# test
+`http://localhost:8080/api/products/search/findByCategoryId?id=1`
