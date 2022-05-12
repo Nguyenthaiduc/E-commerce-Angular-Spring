@@ -25,6 +25,7 @@ export class ProductCategoryMenuComponent implements OnInit {
         console.log('Product Categories:' + JSON.stringify(data))
         this.productCategories = data;
       }
+
     )
   }
 
