@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NtducFormService } from 'src/app/services/ntduc-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -12,9 +13,13 @@ export class CheckoutComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
 
   totalPrice: number = 0;
-  totalQuantity: number = 0
-  
-  constructor(private formBuilder: FormBuilder) { }
+  totalQuantity: number = 0;
+
+  creditCardYears : number[] = [];
+  creditCardMonth : number[] = []
+
+  constructor(private formBuilder: FormBuilder,
+              private ntducFormService : NtducFormService) { }
 
   ngOnInit(): void {
 
@@ -53,6 +58,27 @@ export class CheckoutComponent implements OnInit {
       }),
 
     });
+
+
+    //popular services card month
+    const startMonth : number = new Date().getMonth() + 1;
+    console.log("StartMonth"+ startMonth);
+
+    this.ntducFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        console.log("data" + JSON.stringify(data))
+        this.creditCardMonth = data;
+      }
+    )
+
+     //popular services card year
+     this.ntducFormService.getCreditCardYear().subscribe(
+       data=> {
+        console.log("dataCreditYear" + JSON.stringify(data))
+        this.creditCardYears = data
+       }
+     )
+
   }
   copyShippingAddressToBillingAddress(event:any) {
     if(event.target.checked) {
