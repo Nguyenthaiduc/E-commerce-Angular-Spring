@@ -75,7 +75,7 @@ export class CheckoutComponent implements OnInit {
      this.ntducFormService.getCreditCardYear().subscribe(
        data=> {
         console.log("dataCreditYear" + JSON.stringify(data))
-        this.creditCardYears = data
+        this.creditCardYears = data;
        }
      )
 
