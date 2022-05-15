@@ -10,6 +10,10 @@ export class CheckoutComponent implements OnInit {
 
 
   checkoutFormGroup!: FormGroup;
+
+  totalPrice: number = 0;
+  totalQuantity: number = 0
+  
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -49,6 +53,16 @@ export class CheckoutComponent implements OnInit {
       }),
 
     });
+  }
+  copyShippingAddressToBillingAddress(event:any) {
+    if(event.target.checked) {
+      this.checkoutFormGroup.controls['billingAddress']
+            .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+    }
+    else {
+      this.checkoutFormGroup.controls['billingAddress'].reset();
+    }
+
   }
 
   onSubmit(){
