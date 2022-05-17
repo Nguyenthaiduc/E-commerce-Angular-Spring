@@ -25,7 +25,7 @@
 
 
                               <div class="row"*ngIf="firstName.errors.minlength">
-                                First Name must be  at least 2 characters long 
+                                First Name must be  at least 2 characters long
                             </div>
 
                             </div>
@@ -38,6 +38,19 @@
                       <div class="col-md-9">
                           <div class="input-space">
                               <input formControlName="lastName" type="text">
+
+                              <div
+                              *ngFor="lastName.invalid && (lastName.dirty || lastName.touched)"
+                              class="alert alert-danger mt-1 ">
+
+                              <div class="row"*ngIf="lastName.errors.required">
+                                  Last Name is required
+                              </div>
+
+
+                              <div class="row"*ngIf="lastName.errors.minlength">
+                                Last Name must be  at least 2 characters long
+                            </div>
                           </div>
                       </div>
                   </div>
@@ -47,6 +60,20 @@
                       <div class="col-md-9">
                           <div class="input-space">
                               <input formControlName="email" type="text">
+
+
+                              <div
+                              *ngFor="email.invalid && (lastName.dirty || email.touched)"
+                              class="alert alert-danger mt-1 ">
+
+                              <div class="row"*ngIf="email.errors.required">
+                                  Email is required
+                              </div>
+
+
+                              <div class="row"*ngIf="email.errors.pattern">
+                                Email must be  at least 2 characters long
+                            </div>
                           </div>
                       </div>
                   </div>
