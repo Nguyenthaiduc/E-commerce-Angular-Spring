@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -6,7 +7,11 @@ import { Observable, of } from 'rxjs';
 })
 export class NtducFormService {
 
-  constructor() { }
+  private countriesUrl = 'http://localhost:8080/api/countries';
+  private stateUrl = 'http://localhost:8080/api/states';
+
+
+  constructor(private httpClient : HttpClient) { }
 
   getCreditCardMonths(startMonth: number): Observable<number[]> {
 
