@@ -5,6 +5,8 @@ import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { NtducValidators } from 'src/app/validators/ntduc-validators';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -29,7 +31,9 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private ntducFormService: NtducFormService,
-              private cartSerivce: CartService) { }
+              private cartSerivce: CartService,
+              private checkoutService : CheckoutService,
+              private router : Router) { }
 
   ngOnInit(): void {
 
@@ -173,6 +177,7 @@ export class CheckoutComponent implements OnInit {
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
 
     console.log(this.checkoutFormGroup.get('customer').value);
@@ -180,6 +185,24 @@ export class CheckoutComponent implements OnInit {
 
     console.log("The shipping address country is " + this.checkoutFormGroup.get('shippingAddress').value.country.name);
     console.log("The shipping address state is " + this.checkoutFormGroup.get('shippingAddress').value.state.name);
+
+    //set up order
+
+    //get cart items from cartItems
+
+    //set u0p purchase
+
+    //populate puchase - customer
+
+    //populate purchase - shipping address
+
+    //populate purchase - shipping address
+
+    //populate purchase - order and orderItem
+
+    //call REST API with the CheckoutSevices
+
+
 
   }
 
