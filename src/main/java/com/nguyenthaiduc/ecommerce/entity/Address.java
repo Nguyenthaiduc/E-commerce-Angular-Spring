@@ -24,4 +24,7 @@ public class Address {
     @Column(name = "state")
     private String state;
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Order order;
 }
