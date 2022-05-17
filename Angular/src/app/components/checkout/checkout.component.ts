@@ -102,9 +102,16 @@ export class CheckoutComponent implements OnInit {
     if(event.target.checked) {
       this.checkoutFormGroup.controls['billingAddress']
             .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+
+          //bug fix for states
+          this.billingAddressStates = this.shippingAddressStates;
     }
     else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
+
+      //bug fix for states
+      this.billingAddressStates = []
+
     }
 
   }
@@ -153,8 +160,14 @@ export class CheckoutComponent implements OnInit {
       data => {
 
         if (formGroupName === 'shippingAddress') {
-          this
+          this.shippingAddressStates = data;
         }
+        else {
+          this.billingAddressStates = data;
+        }
+
+        // select first item by default
+        formGroup.get('state').setValue(data[0]);
       })
   }
 }
