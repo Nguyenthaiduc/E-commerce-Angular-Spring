@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Country } from 'src/app/common/country';
 import { NtducFormService } from 'src/app/services/ntduc-form.service';
 
 @Component({
@@ -16,7 +17,9 @@ export class CheckoutComponent implements OnInit {
   totalQuantity: number = 0;
 
   creditCardYears : number[] = [];
-  creditCardMonths : number[] = []
+  creditCardMonths : number[] = [];
+  countries : Country[] = [];
+
 
   constructor(private formBuilder: FormBuilder,
               private ntducFormService : NtducFormService) { }
@@ -76,6 +79,15 @@ export class CheckoutComponent implements OnInit {
        data=> {
         console.log("dataCreditYear" + JSON.stringify(data))
         this.creditCardYears = data;
+       }
+     )
+
+     //populate countries
+
+     this.ntducFormService.getCountries().subscribe(
+       data => {
+         console.log("Retrieved countries"+ JSON.stringify(data))
+         this.countries = data;
        }
      )
 
