@@ -4,6 +4,7 @@ import { NtducFormService } from 'src/app/services/ntduc-form.service';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { NtducValidators } from 'src/app/validators/ntduc-validators';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -13,6 +14,7 @@ import { NtducValidators } from 'src/app/validators/ntduc-validators';
 export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup: FormGroup | any
+
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -26,7 +28,8 @@ export class CheckoutComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private luv2ShopFormService: NtducFormService) { }
+              private ntducFormService: NtducFormService,
+              private cartSerivce: CartService) { }
 
   ngOnInit(): void {
 
@@ -81,7 +84,7 @@ export class CheckoutComponent implements OnInit {
     const startMonth: number = new Date().getMonth() + 1;
     console.log("startMonth: " + startMonth);
 
-    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+    this.ntducFormService.getCreditCardMonths(startMonth).subscribe(
       data => {
         console.log("Retrieved credit card months: " + JSON.stringify(data));
         this.creditCardMonths = data;
@@ -90,7 +93,7 @@ export class CheckoutComponent implements OnInit {
 
     // populate credit card years
 
-    this.luv2ShopFormService.getCreditCardYear().subscribe(
+    this.ntducFormService.getCreditCardYear().subscribe(
       data => {
         console.log("Retrieved credit card years: " + JSON.stringify(data));
         this.creditCardYears = data;
@@ -99,7 +102,7 @@ export class CheckoutComponent implements OnInit {
 
     // populate countries
 
-    this.luv2ShopFormService.getCountries().subscribe(
+    this.ntducFormService.getCountries().subscribe(
       data => {
         console.log("Retrieved countries: " + JSON.stringify(data));
         this.countries = data;
@@ -182,7 +185,7 @@ export class CheckoutComponent implements OnInit {
       startMonth = 1;
     }
 
-    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+    this.ntducFormService.getCreditCardMonths(startMonth).subscribe(
       data => {
         console.log("Retrieved credit card months: " + JSON.stringify(data));
         this.creditCardMonths = data;
@@ -200,7 +203,7 @@ export class CheckoutComponent implements OnInit {
     console.log(`${formGroupName} country code: ${countryCode}`);
     console.log(`${formGroupName} country name: ${countryName}`);
 
-    this.luv2ShopFormService.getStates(countryCode).subscribe(
+    this.ntducFormService.getStates(countryCode).subscribe(
       data => {
 
         if (formGroupName === 'shippingAddress') {
