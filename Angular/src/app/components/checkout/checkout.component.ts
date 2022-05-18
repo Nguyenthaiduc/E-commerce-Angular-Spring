@@ -9,6 +9,7 @@ import { CheckoutService } from 'src/app/services/checkout.service';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 
 @Component({
   selector: 'app-checkout',
@@ -206,13 +207,26 @@ export class CheckoutComponent implements OnInit {
     //- short way of doing the same thingy
     let orderItems : OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
 
+    //set up purchase
+    let purchase = new Purchase()
 
     //populate puchase - customer
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+
 
     //populate purchase - shipping address
-
+    purchase.shippingAddress = this.checkoutFormGroup.controls["shippingAddress"].value;
+    const shippingState : State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
+    const shippingCountry : State = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
+    purchase.shippingAddress.state = shippingState.name;
+    purchase.shippingAddress.country = shippingCountry.name;
     //populate purchase - shipping address
 
+    purchase.billingAddress = this.checkoutFormGroup.controls["billingAddress"].value;
+    const billingState : State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
+    const billingCountry : State = JSON.parse(JSON.stringify(purchase.billingAddress.country));
+    purchase.billingAddress.state = billingState.name;
+    purchase.billingAddress.country = billingCountry.name;
     //populate purchase - order and orderItem
 
     //call REST API with the CheckoutSevices
