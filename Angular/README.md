@@ -34,3 +34,6 @@ create service
 `http://localhost:8080/api/products/search/findByCategoryId?id=1`
 `git rm -r --cached .`
 `http://localhost:8080/api/states/search/findByCountryCode?code=VN`
+
+## Server Side
+`Okta Developer`
