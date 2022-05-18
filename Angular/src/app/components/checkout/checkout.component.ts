@@ -7,6 +7,8 @@ import { NtducValidators } from 'src/app/validators/ntduc-validators';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
 
 @Component({
   selector: 'app-checkout',
@@ -31,7 +33,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private ntducFormService: NtducFormService,
-              private cartSerivce: CartService,
+              private cartService: CartService,
               private checkoutService : CheckoutService,
               private router : Router) { }
 
@@ -119,13 +121,13 @@ export class CheckoutComponent implements OnInit {
   reviewCartDetails() {
 
     // subcribe to cartService.totalQuantity
-    this.cartSerivce.totalQuantity.subscribe(
+    this.cartService.totalQuantity.subscribe(
       totalQuantity => this.totalQuantity = totalQuantity
     )
 
 
     //subscribe to cartService.totalPrice
-    this.cartSerivce.totalPrice.subscribe(
+    this.cartService.totalPrice.subscribe(
       totalPrice => this.totalPrice = totalPrice
     );
   }
@@ -187,10 +189,23 @@ export class CheckoutComponent implements OnInit {
     console.log("The shipping address state is " + this.checkoutFormGroup.get('shippingAddress').value.state.name);
 
     //set up order
+    let order = new Order()
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
 
     //get cart items from cartItems
+    const cartItems = this.cartService.cartItems
+    //set up purchase
+    //- long way
 
-    //set u0p purchase
+    // let orderItems : OrderItem[] = []
+    // for(let i = 0 ; i< cartItems.length ; i++) {
+    //   orderItems[i] = new OrderItem(cartItems[i]);
+    // }
+
+    //- short way of doing the same thingy
+    let orderItems : OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
+
 
     //populate puchase - customer
 
