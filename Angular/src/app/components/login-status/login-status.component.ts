@@ -16,7 +16,7 @@ export class LoginStatusComponent implements OnInit {
 
     //Subciribe
     this.oktaAuthSerivce.$authenticationState.subscribe(
-      (result) => {
+      (result : any) => {
         this.isAuthenticated = result;
         this.getUserDetails();
       }
@@ -26,7 +26,7 @@ export class LoginStatusComponent implements OnInit {
     if (this.isAuthenticated) {
 
       this.oktaAuthSerivce.getUser().then(
-        res => {
+        (res: any) => {
           this.userFullName = res.name;
         }
       )
